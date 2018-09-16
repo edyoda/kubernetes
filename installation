@@ -26,5 +26,27 @@ setenforce 0
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 systemctl enable kubelet && systemctl start kubelet
 
+yum update -y
+On master cluster login as normal user 
+sudo kubeadm init --pod-network-cidr=192.168.0.0/16
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-yum update -y 
+kubectl apply -f \
+https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/etcd.yaml
+
+kubectl apply -f \
+https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/rbac.yaml
+
+kubectl apply -f \
+https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/calico.yaml
+
+watch kubectl get pods --all-namespaces
+
+kubectl get nodes
+
+#export KUBECONFIG=/etc/kubernetes/kubelet.conf
+
+On Worker nodes be in the root mode
+kubeadm join ... 
