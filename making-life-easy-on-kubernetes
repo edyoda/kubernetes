@@ -1,0 +1,9 @@
+Things to do before you start anything on command line : 
+
+source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
+
+
+Depending on at what stage of the learning curve you are on Kubernetes, you can go to the cheatsheet link given below:
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
