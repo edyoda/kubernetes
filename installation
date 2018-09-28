@@ -1,9 +1,9 @@
+Launch an amazon linux 2
 
+On both master and slave nodes :
 sudo su 
-
 yum install -y docker
 systemctl enable docker && systemctl start docker
-
 
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -33,6 +33,7 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
+# For calico networking
 kubectl apply -f \
 https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/etcd.yaml
 
@@ -43,6 +44,8 @@ kubectl apply -f \
 https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/calico.yaml
 
 watch kubectl get pods --all-namespaces
+
+#Take a pause of 2 minutes
 
 kubectl get nodes
 
