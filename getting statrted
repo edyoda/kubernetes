@@ -1,0 +1,9 @@
+ kubectl run kubia --image=luksa/kubia --port=8080 --generator=run/v1
+ kubectl get pods
+  kubectl expose rc kubia --type=LoadBalancer --name kubia-http
+  kubectl get services
+  kubectl get svc
+  curl <exernalip from above>:8080
+  kubectl scale rc kubia --replicas=3
+  kubectl get rc
+  kubectl get pods
