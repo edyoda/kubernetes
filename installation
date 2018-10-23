@@ -34,16 +34,14 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # For calico networking
-kubectl apply -f \
-https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/etcd.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/etcd.yaml
 
-kubectl apply -f \
-https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/rbac.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/rbac.yaml
 
-kubectl apply -f \
-https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/calico.yaml
+kubectl apply -f https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/calico.yaml
 
-watch kubectl get pods --all-namespaces
+#watch pods
+kubectl get pods --all-namespaces
 
 #Take a pause of 2 minutes
 
@@ -51,5 +49,11 @@ kubectl get nodes
 
 #export KUBECONFIG=/etc/kubernetes/kubelet.conf
 
-On Worker nodes be in the root mode
-kubeadm join ... 
+# On Worker nodes be in the root mode
+# copy kubeadm join command from output of kube master node 
+
+# on all nodes
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
