@@ -1,9 +1,14 @@
-Launch an amazon linux 2
+# Launch 3 amazon linux 2 machien
+# 1 master and 2 slaves
 
-On both master and slave nodes :
+
+# On both master and slave nodes :
 sudo su 
 yum install -y docker
-systemctl enable docker && systemctl start docker
+# systemctl enable docker && systemctl start docker
+# OR
+service docker enable && service docker start
+
 
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -23,11 +28,17 @@ EOF
 sysctl --system
 
 setenforce 0
+
+
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+
 systemctl enable kubelet && systemctl start kubelet
+# OR
+# service kubelet start 
 
 yum update -y
-On master cluster login as normal user 
+
+# On master node login as normal user 
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
@@ -40,14 +51,14 @@ kubectl apply -f https://docs.projectcalico.org/v3.2/getting-started/kubernetes/
 
 kubectl apply -f https://docs.projectcalico.org/v3.2/getting-started/kubernetes/installation/hosted/calico.yaml
 
-#watch pods
+# watch pods
 kubectl get pods --all-namespaces
 
-#Take a pause of 2 minutes
+# Take a pause of 2 minutes
 
 kubectl get nodes
 
-#export KUBECONFIG=/etc/kubernetes/kubelet.conf
+# export KUBECONFIG=/etc/kubernetes/kubelet.conf
 
 # On Worker nodes be in the root mode
 # copy kubeadm join command from output of kube master node 
@@ -55,5 +66,4 @@ kubectl get nodes
 # on all nodes
 
 mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+export KUBECONFIG=/etc/kubernetes/kubelet.conf
