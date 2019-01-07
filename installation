@@ -1,5 +1,5 @@
-# Launch 3 amazon linux 2 machien
-# 1 master and 2 slaves
+# Launch 2 amazon linux 2 machines
+# 1 master and 1 slaves
 
 # For Amazon Linux 2 systems
 # On both master and slave nodes :
