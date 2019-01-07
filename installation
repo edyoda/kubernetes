@@ -4,7 +4,7 @@
 # For Amazon Linux 2 systems
 # On both master and slave nodes :
 sudo su 
-sudo amazon-linux-extras install docker
+sudo amazon-linux-extras install docker -y
 # OR 
 # yum install -y docker
 systemctl enable docker && systemctl start docker
@@ -61,16 +61,15 @@ export KUBECONFIG=/etc/kubernetes/kubelet.conf
 # Take a pause of 2 minutes
 kubectl get nodes
 
-# watch pods
+# watch system pods
 kubectl get pods --all-namespaces
 
-
-
-# export KUBECONFIG=/etc/kubernetes/kubelet.conf
-
 # On Worker nodes be in the root mode
-# copy kubeadm join command from output of kube master node 
-# on all nodes
+
+sudo su
+# Now copy kubeadm join command from output of kube master node 
+
+# on all the nodes do 
 
 mkdir -p $HOME/.kube
 export KUBECONFIG=/etc/kubernetes/kubelet.conf
